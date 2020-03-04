@@ -106,6 +106,15 @@ int main(int argc, char *argv[]) {
         printf("false positive = %d\n", fp);
         printf("true negative = %d\n", tn);
         printf("false negative = %d\n", fn);
+
+        float precision = tp/(tp+(float)fp);
+        float recall = tp/(tp+(float)fn);
+
+        printf("precision = %f\n", precision);
+        printf("recall = %f\n", recall);
+
+        float f1 = 2*precision*recall/(precision+recall);
+        printf("f1 = %f\n", f1);
     } catch (const char *err) {
         printf("%s", err);
     }
