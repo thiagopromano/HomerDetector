@@ -3,6 +3,9 @@
 #include <config.h>
 #include "Image.h"
 
+color homerBeard = {209, 178, 113};
+color white = {255, 255, 255};
+
 
 bool isALittleLess(int color, int target, int distance) { return color > target - distance && color < target; }
 
@@ -20,12 +23,17 @@ bool hasHomer(Image image) {
     int cont = 0;
     for (int i = 0; i < image.height; i++) {
         for (int j = 0; j < image.width; j++) {
-            color target = {209, 178, 113};
-            if (isColorClose(image.bitmap[i][j], target, 15) || isALittleDarker(image.bitmap[i][j], target, 30))
-                cont++;
+            if (isColorClose(image.bitmap[i][j], homerBeard, 15) ||
+                isALittleDarker(image.bitmap[i][j], homerBeard, 30)) {
+                for (int curline = 0; curline < i; curline++) {
+                    if (isColorClose(image.bitmap[curline][j], white, 10)){
+                        return true;
+                    }
+                }
+            }
         }
     }
-    return cont > 5;
+    return false;
 }
 
 Image ReadBMP(int fileNumber) {
