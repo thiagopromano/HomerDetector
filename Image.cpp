@@ -13,14 +13,14 @@ void freeImage(Image image) {
 
 bool isALittleLess(int color, int target, int distance) { return color > target - distance && color < target; }
 
-bool isALittleDarker(unsigned char *c, unsigned char *t, int distance) {
-    return isALittleLess(c[0], t[0], distance) &&
-           isALittleLess(c[1], t[1], distance) &&
-           isALittleLess(c[2], t[2], distance);
+bool isALittleDarker(color c, color t, int distance) {
+    return isALittleLess(c.r, t.r, distance) &&
+           isALittleLess(c.g, t.g, distance) &&
+           isALittleLess(c.b, t.b, distance);
 }
 
-bool isColorClose(unsigned char *c, unsigned char *t, int distance) {
-    return (abs(c[0] - t[0]) + abs(c[1] - t[1]) + abs(c[2] - t[2])) < distance;
+bool isColorClose(color c, color t, int distance) {
+    return (abs(c.r - t.r) + abs(c.g - t.g) + abs(c.b - t.b)) < distance;
 }
 
 Image ReadBMP(int fileNumber) {
@@ -50,9 +50,9 @@ Image ReadBMP(int fileNumber) {
     for (int i = 0; i < height; i++) {
         fread(data, sizeof(unsigned char), row_padded, f);
         for (int j = 0; j < width; j++) {
-            image.bitmap[i][j][0] = data[j * 3 + 2];
-            image.bitmap[i][j][1] = data[j * 3 + 1];
-            image.bitmap[i][j][2] = data[j * 3];
+            image.bitmap[i][j].r = data[j * 3 + 2];
+            image.bitmap[i][j].g = data[j * 3 + 1];
+            image.bitmap[i][j].b = data[j * 3];
         }
     }
     delete[] data;

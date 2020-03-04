@@ -4,7 +4,9 @@
 
 #ifndef HOMER_IMAGE_H
 #define HOMER_IMAGE_H
-typedef unsigned char color[3];
+typedef struct {
+    unsigned char r, g, b;
+} color;
 
 struct Image {
     int code;

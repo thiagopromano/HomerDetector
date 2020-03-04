@@ -8,12 +8,20 @@ color white = {255, 255, 255};
 color homerYellow = {248, 214, 3};
 color black = {58, 45, 29};
 
+
+bool isHomerBeard(color currentColor) {
+    return isColorClose(currentColor, homerBeard, 20) ||
+           isALittleDarker(currentColor, homerBeard, 12);
+}
+
+
 bool hasHomer(Image image) {
     int cont = 0;
     for (int i = 0; i < image.height; i++) {
         for (int j = 0; j < image.width; j++) {
-            if (isColorClose(image.bitmap[i][j], homerBeard, 20) ||
-                isALittleDarker(image.bitmap[i][j], homerBeard, 12)) {
+            color currentColor = image.bitmap[i][j];
+            if (isHomerBeard(currentColor)) {
+
                 //return true;
                 int notEyeCount = 0;
                 for (int curline = i; curline > 0; curline--) {
@@ -30,7 +38,6 @@ bool hasHomer(Image image) {
     }
     return cont > 5;
 }
-
 
 
 int main(int argc, char *argv[]) {
