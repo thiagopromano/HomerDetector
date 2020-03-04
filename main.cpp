@@ -5,6 +5,8 @@
 
 color homerBeard = {209, 178, 113};
 color white = {255, 255, 255};
+color homerYellow = {248, 214, 3};
+color black = {58, 45, 29};
 
 
 bool isALittleLess(int color, int target, int distance) { return color > target - distance && color < target; }
@@ -23,17 +25,23 @@ bool hasHomer(Image image) {
     int cont = 0;
     for (int i = 0; i < image.height; i++) {
         for (int j = 0; j < image.width; j++) {
-            if (isColorClose(image.bitmap[i][j], homerBeard, 15) ||
-                isALittleDarker(image.bitmap[i][j], homerBeard, 30)) {
-                for (int curline = 0; curline < i; curline++) {
-                    if (isColorClose(image.bitmap[curline][j], white, 10)){
-                        return true;
+            if (isColorClose(image.bitmap[i][j], homerBeard, 20) ||
+                isALittleDarker(image.bitmap[i][j], homerBeard, 12)) {
+                //return true;
+                int notEyeCount = 0;
+                for (int curline = i; curline > 0; curline--) {
+                    if (isColorClose(image.bitmap[curline][j], white, 50)) {
+                        cont++;
+                        break;
+                    } else notEyeCount++;
+                    if (notEyeCount > 50) {
+                        break;
                     }
                 }
             }
         }
     }
-    return false;
+    return cont > 5;
 }
 
 Image ReadBMP(int fileNumber) {
@@ -49,7 +57,7 @@ Image ReadBMP(int fileNumber) {
 
     int width = *(int *) &info[18];
     int height = *(int *) &info[22];
-    Image image = {.width=width, .height=height};
+    Image image = {.code=fileNumber, .width=width, .height=height};
     image.bitmap = new color *[height];
     for (int i = 0; i < image.height; i++) {
         image.bitmap[i] = new color[width];
@@ -107,13 +115,13 @@ int main(int argc, char *argv[]) {
         printf("true negative = %d\n", tn);
         printf("false negative = %d\n", fn);
 
-        float precision = tp/(tp+(float)fp);
-        float recall = tp/(tp+(float)fn);
+        float precision = tp / (tp + (float) fp);
+        float recall = tp / (tp + (float) fn);
 
         printf("precision = %f\n", precision);
         printf("recall = %f\n", recall);
 
-        float f1 = 2*precision*recall/(precision+recall);
+        float f1 = 2 * precision * recall / (precision + recall);
         printf("f1 = %f\n", f1);
     } catch (const char *err) {
         printf("%s", err);

@@ -7,6 +7,7 @@
 typedef unsigned char color[3];
 
 struct Image {
+    int code;
     int width;
     int height;
     color **bitmap;
