@@ -17,6 +17,7 @@ struct Image {
 
 void freeImage(Image image);
 bool isALittleDarker(color c, color t, int distance);
+bool isALittleLighter(color c, color t, int distance);
 bool isColorClose(color c, color t, int distance);
 Image ReadBMP(int fileNumber);
 

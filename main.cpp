@@ -4,6 +4,7 @@
 #include "Image.h"
 
 color homerBeard = {209, 178, 113};
+color lightHomerBeard = {251, 206, 183};
 color white = {255, 255, 255};
 color homerYellow = {248, 214, 3};
 color black = {58, 45, 29};
@@ -11,7 +12,8 @@ color black = {58, 45, 29};
 
 bool isHomerBeardColor(color currentColor) {
     return isColorClose(currentColor, homerBeard, 43) ||
-           isALittleDarker(currentColor, homerBeard, 41);
+           isALittleDarker(currentColor, homerBeard, 41) ||
+            isColorClose(currentColor, lightHomerBeard, 20);
 }
 
 bool isHomerBeard(Image image, int i, int j) {
@@ -43,7 +45,7 @@ bool isHomerBeard(Image image, int i, int j) {
 }
 
 bool hasEyeUp(const Image &image, int i, int j) {
-    for (int curline = i, notEyeCount = 0; curline > 0 && notEyeCount < 50; curline--, notEyeCount++) {
+    for (int curline = i, notEyeCount = 0; curline < image.height && notEyeCount < 60; curline++, notEyeCount++) {
         if (isColorClose(image.bitmap[curline][j], white, 50)) {
             return true;
         }

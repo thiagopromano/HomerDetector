@@ -12,11 +12,17 @@ void freeImage(Image image) {
 }
 
 bool isALittleLess(int color, int target, int distance) { return color > target - distance && color < target; }
+bool isALittleMore(int color, int target, int distance) { return color < target + distance && color > target; }
 
 bool isALittleDarker(color c, color t, int distance) {
     return isALittleLess(c.r, t.r, distance) &&
            isALittleLess(c.g, t.g, distance) &&
            isALittleLess(c.b, t.b, distance);
+}
+bool isALittleLighter(color c, color t, int distance) {
+    return isALittleMore(c.r, t.r, distance) &&
+           isALittleMore(c.g, t.g, distance) &&
+           isALittleMore(c.b, t.b, distance);
 }
 
 bool isColorClose(color c, color t, int distance) {
