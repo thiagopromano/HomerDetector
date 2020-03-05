@@ -59,7 +59,9 @@ bool hasHomer(Image image) {
         for (int j = 0; j < image.width; j++) {
             if (isHomerBeard(image, i, j)) {
                 //cont++;
-                if (hasEyeUp(image, i, j)) cont++;
+                if (hasEyeUp(image, i, j)) {
+                    cont++;
+                }
             }
         }
     }
