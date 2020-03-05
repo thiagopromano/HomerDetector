@@ -11,7 +11,7 @@ color black = {58, 45, 29};
 
 bool isHomerBeardColor(color currentColor) {
     return isColorClose(currentColor, homerBeard, 43) ||
-           isALittleDarker(currentColor, homerBeard, 0);
+           isALittleDarker(currentColor, homerBeard, 41);
 }
 
 bool isHomerBeard(Image image, int i, int j) {
