@@ -10,8 +10,8 @@ color black = {58, 45, 29};
 
 
 bool isHomerBeardColor(color currentColor) {
-    return isColorClose(currentColor, homerBeard, 40) ||
-           isALittleDarker(currentColor, homerBeard, 12);
+    return isColorClose(currentColor, homerBeard, 43) ||
+           isALittleDarker(currentColor, homerBeard, 0);
 }
 
 bool isHomerBeard(Image image, int i, int j) {
@@ -56,8 +56,8 @@ bool hasHomer(Image image) {
     for (int i = 0; i < image.height; i++) {
         for (int j = 0; j < image.width; j++) {
             if (isHomerBeard(image, i, j)) {
-                cont++;
-                //if (hasEyeUp(image, i, j)) cont++;
+                //cont++;
+                if (hasEyeUp(image, i, j)) cont++;
             }
         }
     }
