@@ -9,30 +9,55 @@ color homerYellow = {248, 214, 3};
 color black = {58, 45, 29};
 
 
-bool isHomerBeard(color currentColor) {
-    return isColorClose(currentColor, homerBeard, 20) ||
+bool isHomerBeardColor(color currentColor) {
+    return isColorClose(currentColor, homerBeard, 40) ||
            isALittleDarker(currentColor, homerBeard, 12);
 }
 
+bool isHomerBeard(Image image, int i, int j) {
+    color currentColor = image.bitmap[i][j];
+    if (!isHomerBeardColor(currentColor)) {
+        return false;
+    }
+    if (i > 0) {
+        color color = image.bitmap[i - 1][j];
+        if (!isHomerBeardColor(color))
+            return false;
+    }
+    if (i < image.height - 1) {
+        color color = image.bitmap[i + 1][j];
+        if (!isHomerBeardColor(color))
+            return false;
+    }
+    if (j > 0) {
+        color color = image.bitmap[i][j - 1];
+        if (!isHomerBeardColor(color))
+            return false;
+    }
+    if (j < image.width - 1) {
+        color color = image.bitmap[i][j + 1];
+        if (!isHomerBeardColor(color))
+            return false;
+    }
+    return true;
+}
+
+bool hasEyeUp(const Image &image, int i, int j) {
+    for (int curline = i, notEyeCount = 0; curline > 0 && notEyeCount < 50; curline--, notEyeCount++) {
+        if (isColorClose(image.bitmap[curline][j], white, 50)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool hasHomer(Image image) {
     int cont = 0;
     for (int i = 0; i < image.height; i++) {
         for (int j = 0; j < image.width; j++) {
-            color currentColor = image.bitmap[i][j];
-            if (isHomerBeard(currentColor)) {
-
-                //return true;
-                int notEyeCount = 0;
-                for (int curline = i; curline > 0; curline--) {
-                    if (isColorClose(image.bitmap[curline][j], white, 50)) {
-                        cont++;
-                        break;
-                    } else notEyeCount++;
-                    if (notEyeCount > 50) {
-                        break;
-                    }
-                }
+            if (isHomerBeard(image, i, j)) {
+                cont++;
+                //if (hasEyeUp(image, i, j)) cont++;
             }
         }
     }
