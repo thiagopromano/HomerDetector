@@ -73,14 +73,14 @@ int main(int argc, char *argv[]) {
 
     try {
         const char *hasHomerTruth =
-                "ssssnnssssnsssnnssssnnsnsnsssnsssnssnsnnnnnnnnnnnnnnnnnnnn";
+                "ssssnnssssnsssnnssssnnsnsnsssnsssnssnsnnnnnnnnnnnnnnnnnnnnnssssssssnssssss";
 
         int tp = 0;
         int fp = 0;
         int tn = 0;
         int fn = 0;
 
-        for (int i = 1; i <= 58; i++) {
+        for (int i = 1; i <= 74; i++) {
             Image image = ReadBMP(i);
             bool predicted = hasHomer(image);
             freeImage(image);

@@ -2,6 +2,6 @@
 #ifndef HOMER_CONFIG_H
 #define HOMER_CONFIG_H
 
-#define FILES_PATH "@CMAKE_SOURCE_DIR@/imagens"
+#define FILES_PATH "@CMAKE_SOURCE_DIR@/imagensValidacao"
 
 #endif
